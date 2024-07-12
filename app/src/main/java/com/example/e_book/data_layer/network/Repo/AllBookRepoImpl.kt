@@ -7,11 +7,12 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import javax.inject.Inject
 
-class AllBookRepoImpl @Inject constructor(firebaseDatabase: FirebaseDatabase) : AllBookRepo {
+class AllBookRepoImpl1 @Inject constructor(val firebaseDatabase: FirebaseDatabase) : AllBookRepo {
     override fun getAllBook(): Flow<ResultState<List<BookModel>>> = callbackFlow {
         trySend(ResultState.Loading)
         val valueEvent = object : ValueEventListener {
@@ -30,6 +31,11 @@ class AllBookRepoImpl @Inject constructor(firebaseDatabase: FirebaseDatabase) : 
             }
 
         }
-
+        firebaseDatabase.reference.child("Books").addValueEventListener(valueEvent)
+        awaitClose {
+            firebaseDatabase.reference.removeEventListener(valueEvent)
+        }
     }
+
+
 }
