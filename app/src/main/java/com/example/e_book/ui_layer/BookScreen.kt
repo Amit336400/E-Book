@@ -26,13 +26,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
+import com.example.e_book.ui_layer.navigation.NavigationItem
 import com.example.e_book.ui_layer.viewmodel.viewModel
 import kotlinx.coroutines.launch
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Book(modifier: Modifier,viewModel: viewModel = hiltViewModel()) {
+fun Book(modifier: Modifier,viewModel: viewModel = hiltViewModel(),navController: NavController) {
     LaunchedEffect(key1 = true) {
         viewModel.getBooksData()
     }
@@ -65,7 +67,7 @@ fun Book(modifier: Modifier,viewModel: viewModel = hiltViewModel()) {
                    items(res.items){
                        Card(
                            onClick = {
-
+                               navController.navigate(NavigationItem.PdfShowScreen(PdfUrl = it.bookUrl))
                            },
                            modifier = Modifier
                                .fillMaxWidth()

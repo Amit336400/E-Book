@@ -18,7 +18,7 @@ fun NavHostController() {
          }
          composable<NavigationItem.BookByCategory> {
              var category = it.toRoute<NavigationItem.BookByCategory>()
-             BookByCategory(category = category.category,navController)
+             BookByCategory(category = category.category, navController = navController)
          }
          composable<NavigationItem.PdfShowScreen>{
              val url = it.toRoute<NavigationItem.PdfShowScreen>()

@@ -3,12 +3,10 @@ package com.example.e_book.ui_layer.viewmodel
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelStore
 import androidx.lifecycle.viewModelScope
 import com.example.e_book.common.BookCategoryModel
 import com.example.e_book.common.BookModel
 import com.example.e_book.common.ResultState
-
 import com.example.e_book.domain_layer.Repo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -28,7 +26,20 @@ class viewModel @Inject constructor(val repo: Repo) : ViewModel() {
            getData()
        }
    }
-    suspend fun getData(){
+
+    fun getBookCategory(){
+        viewModelScope.launch {
+            getBookCategory1()
+        }
+
+    }
+    fun getBookByCategory(category:String){
+        viewModelScope.launch {
+            getBookByCategory1(category)
+        }
+    }
+
+   private suspend fun getData(){
         repo.getAllBook().collect {
             when (it) {
                 is ResultState.Error -> {
@@ -47,14 +58,7 @@ class viewModel @Inject constructor(val repo: Repo) : ViewModel() {
         }
     }
 
-
-    fun getBookCategory(){
-        viewModelScope.launch {
-            getBookCategory1()
-        }
-
-    }
-    suspend fun getBookCategory1(){
+  private  suspend fun getBookCategory1(){
         repo.getAllBookCategory().collect{
             when(it){
                 is ResultState.Error -> {
@@ -71,6 +75,24 @@ class viewModel @Inject constructor(val repo: Repo) : ViewModel() {
             }
         }
 
+    }
+
+  private  suspend fun getBookByCategory1(category: String) {
+        repo.getBookByCategory(category = category).collect {
+            when (it) {
+                is ResultState.Error -> {
+                    _state.value = itemState(error = it.error.localizedMessage.toString())
+                }
+
+                ResultState.Loading -> {
+                    _state.value = itemState(isLoading = true)
+                }
+
+                is ResultState.Success -> {
+                    _state.value = itemState(items = it.data)
+                }
+            }
+        }
     }
 
 

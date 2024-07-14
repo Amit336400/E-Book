@@ -74,12 +74,25 @@ class AllBookRepoImpl1 @Inject constructor(val firebaseDatabase: FirebaseDatabas
 
             val valueEvent = object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
-
+                    var items: List<BookModel> = emptyList()
+                    items = snapshot.children.filter {
+                        it.getValue<BookModel>()!! .category==category
+                    }.map {
+                        it.getValue<BookModel>()!!
+                    }
+                    trySend(ResultState.Success(data = items))
                 }
 
                 override fun onCancelled(error: DatabaseError) {
-
+                    trySend(ResultState.Error(error = error.toException()))
                 }
+            }
+            firebaseDatabase.reference.child("Books")
+                .addValueEventListener(valueEvent)
+
+            awaitClose{
+                firebaseDatabase.reference.child("Books").removeEventListener(valueEvent)
+                close()
             }
 
         }

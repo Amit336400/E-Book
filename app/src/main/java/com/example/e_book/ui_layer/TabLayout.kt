@@ -48,7 +48,7 @@ fun screens(pageCount: PagerState, navController: NavController) {
             }
 
             1 -> {
-                Book(modifier = Modifier)
+                Book(modifier = Modifier, navController = navController)
             }
         }
     }
