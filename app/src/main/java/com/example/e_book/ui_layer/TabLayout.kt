@@ -21,35 +21,34 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import kotlinx.coroutines.launch
 
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-@Preview(showBackground = true)
-fun tabLayout() {
+fun tabLayout(navController: NavController) {
     val pageCount = rememberPagerState(pageCount = { 2 })
 
     Column(modifier = Modifier.fillMaxSize()) {
         Tabs(pageCount)
-        screens(pageCount)
+        screens(pageCount,navController)
     }
 
 }
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun screens(pageCount: PagerState) {
+fun screens(pageCount: PagerState, navController: NavController) {
     HorizontalPager(state = pageCount) {
         when (it) {
             0 -> {
-                CategoryScreen()
+                CategoryScreen(navController = navController)
             }
 
             1 -> {
-                Book()
+                Book(modifier = Modifier)
             }
         }
     }

@@ -8,6 +8,10 @@ sealed class ResultState<out T> {
 }
 
 data class BookModel(
-    val bookUrl: String,
-    val bookName: String,
+    val bookUrl: String= "",
+    val category :String ="",
+    val bookName: String= ""
+)
+data class  BookCategoryModel(
+    val category : String = ""
 )
