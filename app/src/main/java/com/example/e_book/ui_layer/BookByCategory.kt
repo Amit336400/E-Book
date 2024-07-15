@@ -79,14 +79,5 @@ fun BookByCategory(modifier: Modifier =Modifier,category: String,viewModel: view
             }
         }
     }
-    
-    if (res.items.isEmpty()){
-        Column(
-            modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-           Text(text = "No Book Found ")
-        }
-    }
+
 }
