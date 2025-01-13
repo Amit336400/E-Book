@@ -29,10 +29,10 @@ import com.example.e_book.ui_layer.viewmodel.viewModel
 @Composable
 fun BookByCategory(modifier: Modifier =Modifier,category: String,viewModel: viewModel = hiltViewModel(), navController: NavHostController) {
     LaunchedEffect(key1 = true) {
-      viewModel.getBookByCategory(category)
+        viewModel.getBookByCategory(category)
     }
     val res = viewModel.stste.value
-    
+
     if (res.isLoading){
         Column(
             modifier.fillMaxSize(),
@@ -66,7 +66,7 @@ fun BookByCategory(modifier: Modifier =Modifier,category: String,viewModel: view
                             .fillMaxWidth()
                             .padding(bottom = 10.dp),
 
-                    ) {
+                        ) {
                         Column(
                             Modifier.fillMaxWidth(),
                             horizontalAlignment = Alignment.CenterHorizontally
@@ -81,12 +81,10 @@ fun BookByCategory(modifier: Modifier =Modifier,category: String,viewModel: view
 
                         }
                         Spacer(modifier = modifier.height(10.dp))
-                        }
-
-
-                }
+                    }
                 }
             }
         }
     }
+}
 
