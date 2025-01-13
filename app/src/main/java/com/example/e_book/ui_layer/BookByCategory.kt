@@ -20,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import coil.compose.AsyncImage
 import com.example.e_book.ui_layer.navigation.NavigationItem
 import com.example.e_book.ui_layer.viewmodel.viewModel
 
@@ -63,21 +64,29 @@ fun BookByCategory(modifier: Modifier =Modifier,category: String,viewModel: view
                         },
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(bottom = 10.dp)
+                            .padding(bottom = 10.dp),
+
                     ) {
-                        Spacer(modifier = modifier.height(10.dp))
-                        Column( modifier.padding(top = 30.dp, bottom = 30.dp, start = 10.dp)){
+                        Column(
+                            Modifier.fillMaxWidth(),
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            AsyncImage(
+                                modifier = Modifier
+                                    .height(300.dp)
+                                    .fillMaxWidth(.6f),
+                                model = it.BoolPhoto, contentDescription = null
+                            )
                             Text(text = it.bookName)
-                            Spacer(modifier = modifier.height(10.dp))
-                            Text(text = it.bookUrl)
-                            Spacer(modifier = modifier.height(10.dp))
-                            Text(text = it.category)
+
                         }
                         Spacer(modifier = modifier.height(10.dp))
-                    }
+                        }
+
+
+                }
                 }
             }
         }
     }
 
-}

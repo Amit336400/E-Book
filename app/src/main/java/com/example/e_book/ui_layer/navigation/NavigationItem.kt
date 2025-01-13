@@ -14,5 +14,8 @@ sealed class NavigationItem {
     @Serializable
     data class PdfShowScreen(val PdfUrl :String)
 
+    @Serializable
+    object addBokRout
+
 
 }

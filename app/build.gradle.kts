@@ -88,7 +88,11 @@ dependencies {
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
 
              // --  --  Pdf Viewer -- -- \\
-    implementation("io.github.grizzi91:bouquet:1.1.2")
+ implementation("io.github.grizzi91:bouquet:1.1.2")
+
+
+
+    implementation("io.coil-kt:coil-compose:2.7.0")
 
 
 }

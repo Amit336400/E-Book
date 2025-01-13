@@ -10,26 +10,20 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.SearchBar
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import coil.compose.AsyncImage
 import com.example.e_book.ui_layer.navigation.NavigationItem
 import com.example.e_book.ui_layer.viewmodel.viewModel
-import kotlinx.coroutines.launch
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -73,13 +67,20 @@ fun Book(modifier: Modifier,viewModel: viewModel = hiltViewModel(),navController
                                .fillMaxWidth()
                                .padding(bottom = 10.dp)
                        ) {
-                           Spacer(modifier = modifier.height(10.dp))
-                           Column( modifier.padding(top = 30.dp, bottom = 30.dp, start = 10.dp)){
+                           Column(
+                               modifier.padding(top = 30.dp, bottom = 30.dp, start = 10.dp)
+                                   .fillMaxWidth(),
+                               horizontalAlignment = Alignment.CenterHorizontally
+                           ) {
+
+                               AsyncImage(
+                                   modifier = Modifier
+                                       .height(300.dp)
+                                       .fillMaxWidth(.6f),
+                                   model = it.BoolPhoto, contentDescription = null
+                               )
                                Text(text = it.bookName)
-                               Spacer(modifier = modifier.height(10.dp))
-                               Text(text = it.bookUrl)
-                               Spacer(modifier = modifier.height(10.dp))
-                               Text(text = it.category)
+
                            }
                            Spacer(modifier = modifier.height(10.dp))
                        }
@@ -89,4 +90,6 @@ fun Book(modifier: Modifier,viewModel: viewModel = hiltViewModel(),navController
         }
 
     }
+
+
 
